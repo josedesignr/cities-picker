@@ -1,0 +1,102 @@
+$icon-font-path: '../fonts/';
+
+// bower:scss
+@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+html,
+body {
+    margin:0;
+    padding:0;
+    height:100%;
+    background: lightgray;
+}
+
+html{
+  font-size: 16px;
+}
+
+body {
+  font-size: 62.5%;
+}
+
+.cities-picker {
+  height: 100%;
+  &_panel {
+    background-color: darken(darkgray, 40%);
+    width: calc(100% - 50px);
+    position: fixed;
+    z-index: 2000;
+    height: 100%;
+    right: 100%;
+    transition: all .3s ease;
+    & .main-title {
+      font-family: 'Lalezar', cursive;
+      margin: 0 0 0 15px;
+      line-height: 70px;
+      font-size: 2.6em;
+      height: 70px;
+      color: yellow;
+    }
+    & .nav-icon {
+      background-color: darken(darkgray, 40%);;
+      border-radius: 0 5px 5px 0;
+      position: absolute;
+      text-align: center;
+      line-height: 50px;
+      font-size: 1.6em;
+      padding: 10px;
+      height: 70px;
+      right: -50px;
+      color: yellow;
+      width: 50px;
+      top: 0;
+    }
+    & .autolocation-btn {
+        font-family: 'Roboto Slab', serif;
+        background-color: white;
+        font-size: 1.4em;
+        font-weight: 700;
+        color: darkgray;
+        height: 40px;
+        border: none;
+        width: 100%;
+        outline: 0;
+        & i {
+          margin-right: 15px;          
+        }
+      }
+  }
+  &_map {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.navOpen {
+  right: 50px;
+  transition: all .3s ease;
+}
+
+/*MEDIA QUERIES*/
+@media (min-width: 768px){
+  .cities-picker {
+    display: flex;
+    flex-direction: row;
+    &_panel {
+      position: absolute;
+      flex: 0 0 300px;
+    }
+    &_map {
+      flex: 1 1 auto;
+    }
+  }
+}
+
+@media (min-width: 992px){
+
+}
+
+@media (min-width: 1200px){
+
+}
