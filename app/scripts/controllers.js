@@ -18,7 +18,7 @@ angular.module("citiesPicker")
                 opacity: 0.9,
                 detectRetina: true,
                 reuseTiles: true,
-                attribution: "Mapbox | Alvaro José"
+                attribution: "Mapbox"
             }
             //maxZoom: 14,
     		//minZoom: 1,
@@ -69,6 +69,7 @@ angular.module("citiesPicker")
 	$scope.getMyLocation = function(ip) {
         var url = "http://freegeoip.net/json/" + ip;
         $http.get(url).success(function(res) {
+            
             $scope.center = {
                 lat: res.latitude,
                 lng: res.longitude,
@@ -80,17 +81,42 @@ angular.module("citiesPicker")
 	            lat: res.latitude,
                 lng: res.longitude,
                 focus: true,
-                title: "Cali",
+                title: "Here I am",
 	        });
+	        console.log("Markers");
+    		console.log($scope.markers);
         });
         $scope.navOpen = false;
     };
 
+    //--This function is trigerred when used types a place in SearchBox
     $scope.validateAndAdd = function(){
-    	console.log("Entré");
-    	console.log($scope.place);
+
+    	//--Once the place typed matches with one of the Google API list, it returns an object, so here I validate that.
     	if ($scope.place !== null && typeof $scope.place === 'object'){
-    		console.log("Es un object!");
+
+    		//--Since the object has some functions that I do not need, I have to convert in a JSON string, and then, extract the JSON object itself.
+    		var full_CityInfo = JSON.parse(JSON.stringify($scope.place));
+    		console.log("Full Info");
+    		console.log(full_CityInfo);
+    		console.log("---------");
+
+    		//--Since I do not need that much information about the city, but only name, latitude and logitude; I get just those items.
+    		var markerToAdd = {
+    			lat: full_CityInfo["geometry"]["location"]["lat"],
+    			lng: full_CityInfo["geometry"]["location"]["lng"],
+    			focus: true,
+    			title: full_CityInfo["address_components"][0]["long_name"]
+    		}
+    		console.log("Marker to Add");
+    		console.log(markerToAdd)
+    		console.log("-----------")
+
+    		$scope.markers.push(markerToAdd);
+
+    		console.log("Markers");
+    		console.log($scope.markers);
+
     	}	
     }
 }]);
