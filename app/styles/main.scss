@@ -28,7 +28,7 @@ body {
     position: fixed;
     z-index: 2000;
     height: 100%;
-    right: 100%;
+    left: 100%;
     transition: all .3s ease;
     & .main-title {
       font-family: 'Lalezar', cursive;
@@ -40,14 +40,14 @@ body {
     }
     & .nav-icon {
       background-color: darken(darkgray, 40%);;
-      border-radius: 0 5px 5px 0;
+      border-radius: 5px 0 0 5px;
       position: absolute;
       text-align: center;
       line-height: 50px;
       font-size: 1.6em;
       padding: 10px;
       height: 70px;
-      right: -50px;
+      left: -50px;
       color: yellow;
       width: 50px;
       top: 0;
@@ -74,7 +74,7 @@ body {
 }
 
 .navOpen {
-  right: 50px;
+  left: 50px;
   transition: all .3s ease;
 }
 
@@ -84,7 +84,7 @@ body {
     display: flex;
     flex-direction: row;
     &_panel {
-      position: absolute;
+      position: initial;
       flex: 0 0 300px;
     }
     &_map {
