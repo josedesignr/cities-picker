@@ -10,9 +10,10 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- build:css styles/vendor.css -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
     <!-- bower:css -->
     <link rel="stylesheet" href="/bower_components/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css" />
+    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -35,20 +36,24 @@
     
     <div class="cities-picker">
       
-      <div class="cities-picker_panel" ng-class="{'navOpen' : navOpen}">
-        <h1 class="main-title">Cities Picker</h1>
-        <i class="nav-icon glyphicon glyphicon-menu-hamburger visible-xs" ng-click="navOpen = !navOpen;" ></i>
+        <div class="cities-picker_panel" ng-class="{'navOpen' : navOpen}">
+            <h1 class="main-title">Cities Picker</h1>
+            <i class="nav-icon glyphicon glyphicon-menu-hamburger visible-xs" ng-click="navOpen = !navOpen;" ></i>
 
-        <button class="autolocation-btn" ng-click="getMyLocation('')">
-          <i class="glyphicon glyphicon-screenshot"></i>
-          Where am I?
-        </button>
+            <button class="autolocation-btn" ng-click="getMyLocation('')">
+              <i class="glyphicon glyphicon-screenshot"></i>
+              Where am I?
+            </button>
 
-        <input placeholder="Type a city" ng-hide="true">
-      </div>
-      
-      <leaflet id="mapboxid" lf-center="center" class="cities-picker_map" markers="markers" defaults="defaults"></leaflet>
-      <!--<div id="mapboxid"></div>-->
+            <form class="form">
+                <input class="form-control" g-places-autocomplete ng-model="place" ng-change="validateAndAdd()"/>
+            </form>
+            <pre>{{place | json}}</pre>
+            
+        </div>
+        
+        <leaflet id="mapboxid" lf-center="center" class="cities-picker_map" markers="markers" defaults="defaults"></leaflet>
+        <!--<div id="mapboxid"></div>-->
     </div>
 
 
@@ -64,6 +69,16 @@
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
 
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzHsTQgYYblEPoY_CstQgE9qpk1reDcrw&libraries=places"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>-->
+    <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>-->
+    <!--
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzHsTQgYYblEPoY_CstQgE9qpk1reDcrw&libraries=places">
+    </script>
+    -->
+
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -72,13 +87,13 @@
     <script src="/bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
     <script src="/bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="/bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
+    <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <script src="/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    
-
-
 
     <!-- build:js scripts/plugins.js -->
+    <!--
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
@@ -91,16 +106,11 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    -->
     <!-- endbuild -->
     
     <!-- build:js scripts/main.js -->    
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzHsTQgYYblEPoY_CstQgE9qpk1reDcrw&libraries=places">
-    </script>
-
-    <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-    <script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+   
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
     <!-- endbuild -->

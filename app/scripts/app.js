@@ -1,3 +1,3 @@
 (function () {
-    angular.module('citiesPicker', ['ui-leaflet'] );
+    angular.module('citiesPicker', ['ui-leaflet', 'google.places'] );
 })();

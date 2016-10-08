@@ -5,7 +5,8 @@
     "bootstrap-sass": "~3.3.5",
     "modernizr": "~2.8.1",
     "angular": "^1.5.8",
-    "ui-leaflet": "^2.0.0"
+    "ui-leaflet": "^2.0.0",
+    "angular-google-places-autocomplete": "^0.2.7"
   },
   "overrides": {
     "bootstrap-sass": {

@@ -65,7 +65,7 @@ angular.module("citiesPicker")
     */
 
 
-
+    $scope.navOpen = false;
 	$scope.getMyLocation = function(ip) {
         var url = "http://freegeoip.net/json/" + ip;
         $http.get(url).success(function(res) {
@@ -86,18 +86,11 @@ angular.module("citiesPicker")
         $scope.navOpen = false;
     };
 
-    //$scope.getMyLocation("");
-
-    /*
-    $scope.getMyLocation = function(){
-    	console.log("Hola!");
-    	angular.extend($scope, {
-	        center: {
-	        	autoDiscover: true,
-	        	zoom: 12
-	        }
-	    });
-	    $scope.navOpen = false;
+    $scope.validateAndAdd = function(){
+    	console.log("Entré");
+    	console.log($scope.place);
+    	if ($scope.place !== null && typeof $scope.place === 'object'){
+    		console.log("Es un object!");
+    	}	
     }
-    */
 }]);

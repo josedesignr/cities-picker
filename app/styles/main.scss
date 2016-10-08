@@ -20,6 +20,11 @@ body {
   font-size: 62.5%;
 }
 
+
+.pac-container{
+  z-index: 200000;
+}
+
 .cities-picker {
   height: 100%;
   &_panel {
@@ -86,6 +91,7 @@ body {
     &_panel {
       position: initial;
       flex: 0 0 300px;
+      width: 300px;
     }
     &_map {
       flex: 1 1 auto;
