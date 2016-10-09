@@ -82,7 +82,6 @@ angular.module('citiesPicker')
 	        });
         });
         */
-   
    		/*
         angular.extend($scope, {
             center: {
