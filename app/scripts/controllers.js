@@ -48,22 +48,8 @@ angular.module("citiesPicker")
 	    */
     });
 
-
-
 	$scope.markers = new Array();
-
-    /*
-    $scope.$on("#mapboxid.click", function(event, args){
-        var leafEvent = args.leafletEvent;
-
-        $scope.markers.push({
-            lat: leafEvent.latlng.lat,
-            lng: leafEvent.latlng.lng,
-            message: "My Added Marker"
-        });
-    });
-    */
-
+	$scope.citiesList = ["Cali", "Bogotá"];
 
     $scope.navOpen = false;
 	$scope.getMyLocation = function(ip) {
@@ -82,6 +68,13 @@ angular.module("citiesPicker")
                 lng: res.longitude,
                 focus: true,
                 title: "Here I am",
+                //message: "Here I am",
+                label: {
+                    message: "Hey, drag me if you want",
+                    options: {
+                        noHide: true
+                    }
+                }
 	        });
 	        console.log("Markers");
     		console.log($scope.markers);
@@ -97,9 +90,8 @@ angular.module("citiesPicker")
 
     		//--Since the object has some functions that I do not need, I have to convert in a JSON string, and then, extract the JSON object itself.
     		var full_CityInfo = JSON.parse(JSON.stringify($scope.place));
-    		console.log("Full Info");
+
     		console.log(full_CityInfo);
-    		console.log("---------");
 
     		//--Since I do not need that much information about the city, but only name, latitude and logitude; I get just those items.
     		var markerToAdd = {
@@ -108,15 +100,13 @@ angular.module("citiesPicker")
     			focus: true,
     			title: full_CityInfo["address_components"][0]["long_name"]
     		}
-    		console.log("Marker to Add");
-    		console.log(markerToAdd)
-    		console.log("-----------")
 
+    		//--Add the created marker to the markers array.
     		$scope.markers.push(markerToAdd);
 
-    		console.log("Markers");
-    		console.log($scope.markers);
-
+    		//--Add the city name to the list. This list is the one which is displayed in the aside panel.
+    		$scope.citiesList.push(full_CityInfo["formatted_address"]);
+    		console.log($scope.citiesList);
     	}	
     }
 }]);

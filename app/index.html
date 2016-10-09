@@ -37,7 +37,7 @@
     <div class="cities-picker">
       
         <div class="cities-picker_panel" ng-class="{'navOpen' : navOpen}">
-            <h1 class="main-title">Cities Picker</h1>
+            <h1 class="cities-picker_title">Cities Picker</h1>
             <i class="nav-icon glyphicon glyphicon-menu-hamburger visible-xs" ng-click="navOpen = !navOpen;" ></i>
 
             <button class="autolocation-btn" ng-click="getMyLocation('')">
@@ -45,9 +45,15 @@
               Where am I?
             </button>
 
-            <form class="form">
-                <input class="form-control" g-places-autocomplete ng-model="place" ng-change="validateAndAdd()"/>
-            </form>
+            <h2 class="cities-picker_title"><i class="glyphicon glyphicon-search"></i>Search City</h2>
+            <input class="cities-picker_search-box" g-places-autocomplete ng-model="place" placeholder="Type a city" ng-change="validateAndAdd()"/>
+
+            <ul class="cities-picker_list">
+                <li class="cities-picker_list-city" ng-repeat="city in citiesList">
+                    {{city}}
+                    <i class="glyphicon glyphicon-remove"></i>
+                </li>
+            </ul>
             
         </div>
         
