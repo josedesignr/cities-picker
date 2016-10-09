@@ -96,26 +96,20 @@ angular.module('citiesPicker')
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				function(position){
-					$scope.$apply(function(){
-						$scope.position = position;
-						console.log($scope.position);
-						
-						angular.extend($scope, {
-							center: {
-								lat: position.coords.latitude,
-								lng: position.coords.longitude,
-								zoom: 10
-							}
-						});
-
-						$scope.$storage.citiesList.push("My current location");
-			            $scope.$storage.markers.push({
-				            lat: position.coords.latitude,
-			                lng: position.coords.longitude,
-			                message: "I am here!",
-				        });
-
+					angular.extend($scope, {
+						center: {
+							lat: position.coords.latitude,
+							lng: position.coords.longitude,
+							zoom: 10
+						}
 					});
+
+					$scope.$storage.citiesList.push('My current location');
+		            $scope.$storage.markers.push({
+			            lat: position.coords.latitude,
+		                lng: position.coords.longitude,
+		                message: 'I am here!',
+			        });
 					$scope.locationBtn_legend = 'Where am I?';
 					$scope.navOpen = false;
 				},
