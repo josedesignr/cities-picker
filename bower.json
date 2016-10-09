@@ -6,7 +6,8 @@
     "modernizr": "~2.8.1",
     "angular": "^1.5.8",
     "ui-leaflet": "^2.0.0",
-    "angular-google-places-autocomplete": "^0.2.7"
+    "angular-google-places-autocomplete": "^0.2.7",
+    "ngstorage": "^0.3.11"
   },
   "overrides": {
     "bootstrap-sass": {

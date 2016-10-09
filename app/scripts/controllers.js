@@ -1,5 +1,10 @@
 angular.module("citiesPicker")
-.controller( 'MainController', [ '$scope', '$http', function($scope, $http) { 
+.controller( 'MainController', [ '$scope', '$http', '$localStorage', function($scope, $http, $localStorage) { 
+
+	$scope.$storage = $localStorage.$default({
+		markers: [],
+		citiesList: []
+	});
 
 	angular.extend($scope, {
         center: {
@@ -48,8 +53,8 @@ angular.module("citiesPicker")
 	    */
     });
 
-	$scope.markers = new Array();
-	$scope.citiesList = [];
+	//$scope.markers = new Array();
+	//$scope.citiesList = [];
 
     $scope.navOpen = false;
 	$scope.getMyLocation = function(ip) {
@@ -77,7 +82,7 @@ angular.module("citiesPicker")
                 }
 	        });
 	        console.log("Markers");
-    		console.log($scope.markers);
+    		console.log($scope.$storage.markers);
         });
         $scope.navOpen = false;
     };
@@ -102,10 +107,10 @@ angular.module("citiesPicker")
     		}
 
     		//--Add the created marker to the markers array.
-    		$scope.markers.push(markerToAdd);
+    		$scope.$storage.markers.push(markerToAdd);
 
     		//--Add the city name to the list. This list is the one which is displayed in the aside panel.
-    		$scope.citiesList.push(full_CityInfo["formatted_address"]);
+    		$scope.$storage.citiesList.push(full_CityInfo["formatted_address"]);
  
 
     		//--Map focuses the place that has just been added.
@@ -118,12 +123,15 @@ angular.module("citiesPicker")
 
     		//--Search box gets cleared.
     		$scope.place = "";
+
+    		console.log("LOCAL STORAGE");
+    		console.log($scope.$storage);
     	}	
     }
 
     $scope.removeCity = function(_val){
     	console.log("Se va a remover la ciudad "+_val);
-    	$scope.citiesList.splice(_val, 1);
-    	$scope.markers.splice(_val, 1);
+    	$scope.$storage.citiesList.splice(_val, 1);
+    	$scope.$storage.markers.splice(_val, 1);
     }
 }]);

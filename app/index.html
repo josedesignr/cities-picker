@@ -49,7 +49,7 @@
             <input class="cities-picker_search-box" g-places-autocomplete ng-model="place" placeholder="Type a city" ng-change="validateAndAdd()"/>
 
             <ul class="cities-picker_list">
-                <li class="cities-picker_list-city" ng-repeat="city in citiesList">
+                <li class="cities-picker_list-city" ng-repeat="city in $storage.citiesList">
                     {{city}}
                     <i class="glyphicon glyphicon-remove" ng-click="removeCity($index)"></i>
                 </li>
@@ -57,7 +57,7 @@
             
         </div>
         
-        <leaflet id="mapboxid" lf-center="center" class="cities-picker_map" markers="markers" defaults="defaults"></leaflet>
+        <leaflet id="mapboxid" lf-center="center" class="cities-picker_map" markers="$storage.markers" defaults="defaults"></leaflet>
         <!--<div id="mapboxid"></div>-->
     </div>
 
@@ -94,6 +94,7 @@
     <script src="/bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
     <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
     <script src="/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
+    <script src="/bower_components/ngstorage/ngStorage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
