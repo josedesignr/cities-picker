@@ -112,6 +112,11 @@ angular.module('citiesPicker')
 			        });
 					$scope.locationBtn_legend = 'Where am I?';
 					$scope.navOpen = false;
+
+					console.log('MARKERS');
+					console.log($scope.$storage.markers);
+					console.log('LIST');
+					console.log($scope.$storage.citiesList);
 				},
 				function(error){
 					alert(error.message);
