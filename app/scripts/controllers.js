@@ -106,7 +106,18 @@ angular.module("citiesPicker")
 
     		//--Add the city name to the list. This list is the one which is displayed in the aside panel.
     		$scope.citiesList.push(full_CityInfo["formatted_address"]);
-    		console.log($scope.citiesList);
+ 
+
+    		//--Map focuses the place that has just been added.
+    		$scope.center = {
+                lat: full_CityInfo["geometry"]["location"]["lat"],
+                lng: full_CityInfo["geometry"]["location"]["lng"],
+                zoom: 10
+            };
+
+
+    		//--Search box gets cleared.
+    		$scope.place = "";
     	}	
     }
 
