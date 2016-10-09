@@ -80,7 +80,7 @@ angular.module('citiesPicker')
 								center: {
 									lat: position.coords.latitude,
 									lng: position.coords.longitude,
-									zoom: 10
+									zoom: 15
 								},
 								marker: {
 									lat: position.coords.latitude,
@@ -177,13 +177,13 @@ angular.module('citiesPicker')
 
     $scope.removeCity = function(_val){
     	
-    	//--Remove city and marker from its arrays.
-    	$scope.$storage.citiesList.splice(_val, 1);
-    	$scope.$storage.markers.splice(_val, 1);
-
     	if ($scope.$storage.citiesList[_val] === 'My current location'){
     		$scope.currentLocation = '';
     	}
+
+    	//--Remove city and marker from its arrays.
+    	$scope.$storage.citiesList.splice(_val, 1);
+    	$scope.$storage.markers.splice(_val, 1);
     }
 
     $scope.expandMap = function(){
