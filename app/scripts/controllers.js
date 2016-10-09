@@ -49,7 +49,7 @@ angular.module("citiesPicker")
     });
 
 	$scope.markers = new Array();
-	$scope.citiesList = ["Cali", "Bogotá"];
+	$scope.citiesList = [];
 
     $scope.navOpen = false;
 	$scope.getMyLocation = function(ip) {
