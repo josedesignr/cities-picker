@@ -51,7 +51,7 @@
             <ul class="cities-picker_list">
                 <li class="cities-picker_list-city" ng-repeat="city in citiesList">
                     {{city}}
-                    <i class="glyphicon glyphicon-remove"></i>
+                    <i class="glyphicon glyphicon-remove" ng-click="removeCity($index)"></i>
                 </li>
             </ul>
             

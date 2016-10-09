@@ -109,4 +109,10 @@ angular.module("citiesPicker")
     		console.log($scope.citiesList);
     	}	
     }
+
+    $scope.removeCity = function(_val){
+    	console.log("Se va a remover la ciudad "+_val);
+    	$scope.citiesList.splice(_val, 1);
+    	$scope.markers.splice(_val, 1);
+    }
 }]);
