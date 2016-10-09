@@ -85,6 +85,7 @@ h2 {
     }
     & h2 {
       margin: 20px 0 0 20px;
+      position: relative;
       color: lightgray;
     }
   }
@@ -113,11 +114,29 @@ h2 {
       list-style: none;
       font-weight: 700;
       color: white;
+      & p {
+        max-width: calc(100% - 30px);
+        display: inline-block;
+        white-space: nowrap;
+        overflow: scroll;
+        margin: 0;
+      }
       & i {
         float: right;
       }
     }
   }
+}
+
+.see-all {
+    font-family: "Roboto Slab";
+    text-decoration: underline;
+    position: absolute;
+    font-weight: 700;
+    font-size: 0.6em;
+    color: yellow;
+    right: 15px;
+    top: 8px;
 }
 
 .navOpen {

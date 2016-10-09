@@ -24,10 +24,10 @@ angular.module("citiesPicker")
                 detectRetina: true,
                 reuseTiles: true,
                 attribution: "Mapbox"
-            }
+            },
             //maxZoom: 14,
-    		//minZoom: 1,
-    		//doubleClickZoom: true,
+    		minZoom: 2,
+    		doubleClickZoom: true
     		//scrollWheelZoom: false,
     		//attributionControl: true
         }
@@ -73,16 +73,8 @@ angular.module("citiesPicker")
                 lng: res.longitude,
                 focus: true,
                 title: "Here I am",
-                //message: "Here I am",
-                label: {
-                    message: "Hey, drag me if you want",
-                    options: {
-                        noHide: true
-                    }
-                }
+                message: "Here I am"
 	        });
-	        console.log("Markers");
-    		console.log($scope.$storage.markers);
         });
         $scope.navOpen = false;
     };
@@ -120,18 +112,23 @@ angular.module("citiesPicker")
                 zoom: 10
             };
 
-
     		//--Search box gets cleared.
     		$scope.place = "";
 
-    		console.log("LOCAL STORAGE");
-    		console.log($scope.$storage);
+    		//--Close panel if user is browsing from mobile.
+    		$scope.navOpen = false;
     	}	
     }
 
     $scope.removeCity = function(_val){
-    	console.log("Se va a remover la ciudad "+_val);
+    	
+    	//--Remove city and marker from its arrays.
     	$scope.$storage.citiesList.splice(_val, 1);
     	$scope.$storage.markers.splice(_val, 1);
+    }
+
+    $scope.expandMap = function(){
+    	$scope.center.zoom = 2;
+    	$scope.navOpen = false;
     }
 }]);

@@ -45,16 +45,23 @@
               Where am I?
             </button>
 
-            <h2 class="cities-picker_title"><i class="glyphicon glyphicon-search"></i>Search City</h2>
+            <h2 class="cities-picker_title">
+                <i class="glyphicon glyphicon-search"></i>
+                Search City
+                <small class="see-all" ng-click="expandMap()" >Expand map</small>
+            </h2>
+            
             <input class="cities-picker_search-box" g-places-autocomplete ng-model="place" placeholder="Type a city" ng-change="validateAndAdd()"/>
 
             <ul class="cities-picker_list">
                 <li class="cities-picker_list-city" ng-repeat="city in $storage.citiesList">
-                    {{city}}
+                    <p>{{city}}</p>
                     <i class="glyphicon glyphicon-remove" ng-click="removeCity($index)"></i>
                 </li>
             </ul>
             
+
+
         </div>
         
         <leaflet id="mapboxid" lf-center="center" class="cities-picker_map" markers="$storage.markers" defaults="defaults"></leaflet>
