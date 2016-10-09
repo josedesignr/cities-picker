@@ -1,4 +1,4 @@
-angular.module("citiesPicker")
+angular.module('citiesPicker')
 .controller( 'MainController', [ '$scope', '$http', '$localStorage', function($scope, $http, $localStorage) { 
 
 	$scope.$storage = $localStorage.$default({
@@ -6,7 +6,7 @@ angular.module("citiesPicker")
 		citiesList: []
 	});
 
-	$scope.currentCity = "";
+	$scope.currentCity = '';
 
 	angular.extend($scope, {
         center: {
@@ -25,7 +25,7 @@ angular.module("citiesPicker")
                 opacity: 0.9,
                 detectRetina: true,
                 reuseTiles: true,
-                attribution: "Mapbox"
+                attribution: 'Mapbox'
             },
             //maxZoom: 14,
     		minZoom: 2,
@@ -60,7 +60,7 @@ angular.module("citiesPicker")
 
     $scope.navOpen = false;
 	$scope.getMyLocation = function(ip) {
-        var url = "http://freegeoip.net/json/" + ip;
+        var url = 'http://freegeoip.net/json/' + ip;
         $http.get(url).success(function(res) {
             
             $scope.center = {
@@ -73,8 +73,8 @@ angular.module("citiesPicker")
             $scope.markers.push({
 	            lat: res.latitude,
                 lng: res.longitude,
-                title: "Here I am",
-                message: "Here I am"
+                title: 'Here I am',
+                message: 'Here I am'
 	        });
         });
         $scope.navOpen = false;
@@ -93,28 +93,28 @@ angular.module("citiesPicker")
 
     		//--Since I do not need that much information about the city, but only name, latitude and logitude; I get just those items.
     		var markerToAdd = {
-    			lat: full_CityInfo["geometry"]["location"]["lat"],
-    			lng: full_CityInfo["geometry"]["location"]["lng"],
-    			message: full_CityInfo["address_components"][0]["long_name"],
-    			title: full_CityInfo["address_components"][0]["long_name"]
+    			lat: full_CityInfo['geometry']['location']['lat'],
+    			lng: full_CityInfo['geometry']['location']['lng'],
+    			message: full_CityInfo['address_components'][0]['long_name'],
+    			title: full_CityInfo['address_components'][0]['long_name']
     		}
 
     		//--Add the created marker to the markers array.
     		$scope.$storage.markers.push(markerToAdd);
 
     		//--Add the city name to the list. This list is the one which is displayed in the aside panel.
-    		$scope.$storage.citiesList.push(full_CityInfo["formatted_address"]);
+    		$scope.$storage.citiesList.push(full_CityInfo['formatted_address']);
  
 
     		//--Map focuses the place that has just been added.
     		$scope.center = {
-                lat: full_CityInfo["geometry"]["location"]["lat"],
-                lng: full_CityInfo["geometry"]["location"]["lng"],
+                lat: full_CityInfo['geometry']['location']['lat'],
+                lng: full_CityInfo['geometry']['location']['lng'],
                 zoom: 10
             };
 
     		//--Search box gets cleared.
-    		$scope.place = "";
+    		$scope.place = '';
 
     		//--Close panel if user is browsing from mobile.
     		$scope.navOpen = false;
@@ -131,7 +131,7 @@ angular.module("citiesPicker")
     $scope.expandMap = function(){
     	$scope.center.zoom = 2;
     	$scope.navOpen = false;
-    	$scope.currentCity = "";
+    	$scope.currentCity = '';
     }
 
     $scope.moveMapHere = function(_val){
