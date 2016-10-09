@@ -11,7 +11,6 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel='stylesheet' href='/bower_components/leaflet/dist/leaflet.css' />
-    <link rel='stylesheet' href='/bower_components/angular-google-places-autocomplete/src/autocomplete.css' />
     <link rel='stylesheet' href='/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css' />
     <!-- endbower -->
     <!-- endbuild -->
@@ -33,9 +32,9 @@
             <h1 class="cities-picker_title">Cities Picker</h1>
             <i class="nav-icon glyphicon glyphicon-menu-hamburger visible-xs" ng-click="navOpen = !navOpen;" ></i>
 
-            <button class="autolocation-btn" ng-click="getMyLocation('')">
-              <i class="glyphicon glyphicon-screenshot"></i>
-              Where am I?
+            <button class="autolocation-btn" ng-click="getMyLocation()">
+              <i class="glyphicon" ng-class="locationBtn_legend === 'Where am I?' ? 'glyphicon-screenshot' : 'glyphicon-hourglass'"></i>
+              {{locationBtn_legend}}
             </button>
 
             <h2 class="cities-picker_title">
@@ -52,6 +51,7 @@
                     <i class="glyphicon glyphicon-remove" ng-click="removeCity($index)"></i>
                 </li>
             </ul>
+            <h5 class="panel_clear-all" ng-click="clearAll()">Clear All</h5>
         </div>
         
         <leaflet id="mapboxid" lf-center="center" class="cities-picker_map" markers="$storage.markers" defaults="defaults"></leaflet>
@@ -76,7 +76,6 @@
     <script src="/bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
     <script src="/bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="/bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
-    <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
     <script src="/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
     <script src="/bower_components/ngstorage/ngStorage.js"></script>
     <!-- endbower -->

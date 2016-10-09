@@ -92,6 +92,13 @@ h2 {
       position: relative;
       color: lightgray;
     }
+    & .panel {
+      &_clear-all {
+        font-family: 'Lalezar', cursive;
+        text-align: center;
+        color: white;
+      }
+    }
   }
   &_search-box {
     font-family: 'Roboto Slab', serif;

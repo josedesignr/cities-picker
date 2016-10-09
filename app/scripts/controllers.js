@@ -1,6 +1,8 @@
 angular.module('citiesPicker')
 .controller( 'MainController', [ '$scope', '$http', '$localStorage', function($scope, $http, $localStorage) { 
 
+	$scope.locationBtn_legend = 'Where am I?'
+
 	$scope.$storage = $localStorage.$default({
 		markers: [],
 		citiesList: []
@@ -19,7 +21,7 @@ angular.module('citiesPicker')
             //tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
             //tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             //tileLayer: '//api.mapbox.com/styles/v1/alvarojose827/citng3g0g003s2it88y9lg769/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWx2YXJvam9zZTgyNyIsImEiOiJjaXUwaGZqZnMwMWgzMnpwZzVrdmlpcnBxIn0.ElMgKpRdQu3aeOquy3qwPg',
-            tileLayer: 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWx2YXJvam9zZTgyNyIsImEiOiJjaXUwaGZqZnMwMWgzMnpwZzVrdmlpcnBxIn0.ElMgKpRdQu3aeOquy3qwPg',
+            //tileLayer: 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWx2YXJvam9zZTgyNyIsImEiOiJjaXUwaGZqZnMwMWgzMnpwZzVrdmlpcnBxIn0.ElMgKpRdQu3aeOquy3qwPg',
             tileLayer: 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWx2YXJvam9zZTgyNyIsImEiOiJjaXUwaGZqZnMwMWgzMnpwZzVrdmlpcnBxIn0.ElMgKpRdQu3aeOquy3qwPg',
             tileLayerOptions: {
                 opacity: 0.9,
@@ -59,8 +61,11 @@ angular.module('citiesPicker')
 	//$scope.citiesList = [];
 
     $scope.navOpen = false;
-	$scope.getMyLocation = function(ip) {
-        var url = 'http://freegeoip.net/json/' + ip;
+	$scope.getMyLocation = function() {
+        
+        /*
+        //-- This way works but finds the IP 
+        var url = 'http://freegeoip.net/json/';
         $http.get(url).success(function(res) {
             
             $scope.center = {
@@ -70,14 +75,60 @@ angular.module('citiesPicker')
             };
             $scope.ip = res.ip;
 
-            $scope.markers.push({
+            $scope.$storage.markers.push({
 	            lat: res.latitude,
                 lng: res.longitude,
-                title: 'Here I am',
-                message: 'Here I am'
+                message: res.city
 	        });
         });
-        $scope.navOpen = false;
+        */
+   
+   		/*
+        angular.extend($scope, {
+            center: {
+                autoDiscover: true,
+                zoom: 10
+            }
+        });
+		*/
+
+		$scope.locationBtn_legend = 'Finding location...';
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				function(position){
+					$scope.$apply(function(){
+						$scope.position = position;
+						console.log($scope.position);
+						
+						angular.extend($scope, {
+							center: {
+								lat: position.coords.latitude,
+								lng: position.coords.longitude,
+								zoom: 10
+							}
+						});
+
+						$scope.$storage.citiesList.push("My current location");
+			            $scope.$storage.markers.push({
+				            lat: position.coords.latitude,
+			                lng: position.coords.longitude,
+			                message: "I am here!",
+				        });
+
+					});
+					$scope.locationBtn_legend = 'Where am I?';
+					$scope.navOpen = false;
+				},
+				function(error){
+					alert(error.message);
+					$scope.locationBtn_legend = 'Where am I?';
+					$scope.navOpen = false;
+				},
+				{
+					enableHighAccuracy: true
+				}
+			);
+		}
     };
 
     //--This function is trigerred when used types a place in SearchBox
@@ -142,5 +193,10 @@ angular.module('citiesPicker')
     	};
     	$scope.navOpen = false;
     	$scope.currentCity = _val;
+    }
+
+    $scope.clearAll = function(){
+    	$scope.$storage.markers = [];
+    	$scope.$storage.citiesList = [];
     }
 }]);
