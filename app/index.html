@@ -54,7 +54,7 @@
             <input class="cities-picker_search-box" g-places-autocomplete ng-model="place" placeholder="Type a city" ng-change="validateAndAdd()"/>
 
             <ul class="cities-picker_list">
-                <li class="cities-picker_list-city" ng-repeat="city in $storage.citiesList">
+                <li class="cities-picker_list-city" ng-class="{ 'selected' : currentCity === $index }" ng-repeat="city in $storage.citiesList" ng-click="moveMapHere($index)">
                     <p>{{city}}</p>
                     <i class="glyphicon glyphicon-remove" ng-click="removeCity($index)"></i>
                 </li>

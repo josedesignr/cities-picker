@@ -6,6 +6,8 @@ angular.module("citiesPicker")
 		citiesList: []
 	});
 
+	$scope.currentCity = "";
+
 	angular.extend($scope, {
         center: {
             lat: 3.9,
@@ -71,7 +73,6 @@ angular.module("citiesPicker")
             $scope.markers.push({
 	            lat: res.latitude,
                 lng: res.longitude,
-                focus: true,
                 title: "Here I am",
                 message: "Here I am"
 	        });
@@ -94,7 +95,7 @@ angular.module("citiesPicker")
     		var markerToAdd = {
     			lat: full_CityInfo["geometry"]["location"]["lat"],
     			lng: full_CityInfo["geometry"]["location"]["lng"],
-    			focus: true,
+    			message: full_CityInfo["address_components"][0]["long_name"],
     			title: full_CityInfo["address_components"][0]["long_name"]
     		}
 
@@ -130,5 +131,16 @@ angular.module("citiesPicker")
     $scope.expandMap = function(){
     	$scope.center.zoom = 2;
     	$scope.navOpen = false;
+    	$scope.currentCity = "";
+    }
+
+    $scope.moveMapHere = function(_val){
+    	$scope.center = {
+    		lat: $scope.$storage.markers[_val].lat,
+    		lng: $scope.$storage.markers[_val].lng,
+    		zoom: 10
+    	};
+    	$scope.navOpen = false;
+    	$scope.currentCity = _val;
     }
 }]);
