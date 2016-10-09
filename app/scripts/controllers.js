@@ -1,6 +1,7 @@
 angular.module('citiesPicker')
 .controller( 'MainController', [ '$scope', '$http', '$localStorage', function($scope, $http, $localStorage) { 
 
+	$scope.currentLocation = '';
 	$scope.locationBtn_legend = 'Where am I?'
 
 	$scope.$storage = $localStorage.$default({
@@ -63,69 +64,70 @@ angular.module('citiesPicker')
     $scope.navOpen = false;
 	$scope.getMyLocation = function() {
         
-        /*
-        //-- This way works but finds the IP 
-        var url = 'http://freegeoip.net/json/';
-        $http.get(url).success(function(res) {
-            
-            $scope.center = {
-                lat: res.latitude,
-                lng: res.longitude,
-                zoom: 10
-            };
-            $scope.ip = res.ip;
-
-            $scope.$storage.markers.push({
-	            lat: res.latitude,
-                lng: res.longitude,
-                message: res.city
-	        });
-        });
-        */
-   		/*
-        angular.extend($scope, {
-            center: {
-                autoDiscover: true,
-                zoom: 10
-            }
-        });
-		*/
-
+        //--Button changes its lagend, in order to give some feedback
 		$scope.locationBtn_legend = 'Finding location...';
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(
-				function(position){
-					angular.extend($scope, {
-						center: {
-							lat: position.coords.latitude,
-							lng: position.coords.longitude,
-							zoom: 10
-						}
-					});
+		
+		//--If user has not asked for current position yet
+		if($scope.currentLocation === ''){
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					//--This runs if geolocation is successful
+					function(position){
+						$scope.$apply(function(){
 
-					$scope.$storage.citiesList.push('My current location');
-		            $scope.$storage.markers.push({
-			            lat: position.coords.latitude,
-		                lng: position.coords.longitude,
-		                message: 'I am here!',
-			        });
-					$scope.locationBtn_legend = 'Where am I?';
-					$scope.navOpen = false;
+							//--Creates an object with 'center' (for map pane), and 'marker' info.
+							$scope.currentLocation = {
+								center: {
+									lat: position.coords.latitude,
+									lng: position.coords.longitude,
+									zoom: 10
+								},
+								marker: {
+									lat: position.coords.latitude,
+				                	lng: position.coords.longitude,
+				                	message: 'I am here!'
+								}
+							}
+							//--Map moves to coords in 'center'
+							$scope.center = $scope.currentLocation.center;
+							
+							//--The locations lists gets a new item labeled with "My current location"
+							$scope.$storage.citiesList.push('My current location');
 
-					console.log('MARKERS');
-					console.log($scope.$storage.markers);
-					console.log('LIST');
-					console.log($scope.$storage.citiesList);
-				},
-				function(error){
-					alert(error.message);
-					$scope.locationBtn_legend = 'Where am I?';
-					$scope.navOpen = false;
-				},
-				{
-					enableHighAccuracy: true
-				}
-			);
+							//--I need this variable in order to know which item put active (yellow bar)
+							$scope.indexInArray = $scope.$storage.citiesList.length - 1;
+							$scope.currentCity = $scope.indexInArray
+							
+							//--Add a new marker to the array.
+				            $scope.$storage.markers.push($scope.currentLocation.marker);
+
+				            //--After location finishes, calls the function 'locationDone'
+							locationDone();
+						});
+					},
+
+					//--This runs if geolocation fails.
+					function(error){
+						locationDone();
+						alert(error.message);
+					},
+					{
+						enableHighAccuracy: true,
+						timeout: 4000
+					}
+				);
+			}
+		}
+		else {
+			//--If user already asked for current location and it is in the list, then just move map.
+			$scope.center = $scope.currentLocation.center;
+			$scope.currentCity = $scope.indexInArray //--Put the yellow marker on the list.
+			locationDone();
+		}
+
+		function locationDone() {
+			$scope.locationBtn_legend = 'Where am I?';
+			$scope.navOpen = false;
 		}
     };
 
@@ -165,6 +167,9 @@ angular.module('citiesPicker')
     		//--Search box gets cleared.
     		$scope.place = '';
 
+    		//--Put yellow marker in current location
+    		$scope.currentCity = $scope.$storage.citiesList.length - 1;
+
     		//--Close panel if user is browsing from mobile.
     		$scope.navOpen = false;
     	}	
@@ -175,6 +180,10 @@ angular.module('citiesPicker')
     	//--Remove city and marker from its arrays.
     	$scope.$storage.citiesList.splice(_val, 1);
     	$scope.$storage.markers.splice(_val, 1);
+
+    	if ($scope.$storage.citiesList[_val] === 'My current location'){
+    		$scope.currentLocation = '';
+    	}
     }
 
     $scope.expandMap = function(){
@@ -196,5 +205,6 @@ angular.module('citiesPicker')
     $scope.clearAll = function(){
     	$scope.$storage.markers = [];
     	$scope.$storage.citiesList = [];
+    	$scope.currentLocation = '';
     }
 }]);
