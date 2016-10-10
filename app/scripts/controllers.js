@@ -80,7 +80,6 @@ angular.module('citiesPicker')
 							locationDone();
 						});
 					},
-
 					//--This runs if geolocation fails.
 					function(error){
 						locationDone();
@@ -88,7 +87,7 @@ angular.module('citiesPicker')
 					},
 					{
 						enableHighAccuracy: true,
-						timeout: 4000
+						timeout: 10000
 					}
 				);
 			}
