@@ -34,22 +34,8 @@ h2 {
   font-size: 1.8em;
 }
 
-
-.pac-container{
-  z-index: 200000;
-}
-
 .cities-picker {
   height: 100%;
-  &_title {
-    font-family: 'Lalezar', cursive;
-    margin: 0 0 0 15px;
-    
-    color: yellow;
-    & i {
-      margin-right: 15px;
-    }
-  }
   &_panel {
     background-color: darken(darkgray, 40%);
     width: calc(100% - 50px);
@@ -58,6 +44,12 @@ h2 {
     height: 100%;
     left: 100%;
     transition: all .3s ease;
+
+    & .main-title {
+      font-family: 'Lalezar', cursive;
+      margin: 0 0 0 15px;
+      color: yellow;
+    }
     & .nav-icon {
       background-color: darken(darkgray, 40%);
       border-radius: 5px 0 0 5px;
@@ -83,77 +75,84 @@ h2 {
       height: 40px;
       width: 100%;
       outline: 0;
-      & i {
-        margin-right: 15px;          
-      }
     }
-    & h2 {
+    & .subtitle {
       margin: 20px 0 0 20px;
       position: relative;
       color: lightgray;
-    }
-    & .panel {
-      &_clear-all {
+      & small { /* -- Expand map function -- */
         font-family: 'Lalezar', cursive;
-        text-align: center;
-        color: white;
+        position: absolute;
+        font-weight: 100;
+        font-size: 0.7em;
+        cursor: pointer;
+        color: yellow;
+        right: 15px;
+        top: 10px;
       }
     }
+    & .search-box {
+      font-family: 'Roboto Slab', serif;
+      width: calc(100% - 20px);
+      font-size: 1.4em;
+      font-weight: 100;
+      padding: 10px; 
+      height: 35px;
+      margin: 10px;
+      outline: 0;
+    }
+    & .cities-list {
+      font-family: 'Roboto Slab', serif;
+      background-color: darken(darkgray, 30%);
+      padding: 0;
+      &_city {
+        border-bottom: 2px solid darken(darkgray, 40%);
+        padding: 10px 10px 10px 30px;
+        font-size: 1.4em;
+        list-style: none;
+        font-weight: 700;
+        color: white;
+        & p { /* -- City names in list -- */
+          max-width: calc(100% - 30px);
+          display: inline-block;
+          white-space: nowrap;
+          overflow: auto;
+          margin: 0;
+        }
+        & i { /* -- X icon in every city -- */
+          float: right;
+        }
+      }
+    }
+    & .clear-all {
+      font-family: 'Lalezar', cursive;
+      text-align: center;
+      cursor: pointer;
+      color: white;
+    }
   }
-  &_search-box {
-    font-family: 'Roboto Slab', serif;
-    width: calc(100% - 20px);
-    font-size: 1.4em;
-    font-weight: 100;
-    padding: 10px; 
-    height: 35px;
-    margin: 10px;
-    outline: 0;
-  }
+  
   &_map {
     height: 100%;
     width: 100%;
   }
-  &_list {
-    font-family: 'Roboto Slab', serif;
-    background-color: darken(darkgray, 30%);
-    padding: 0;
-    &-city {
-      border-bottom: 2px solid darken(darkgray, 40%);
-      padding: 10px 10px 10px 30px;
-      font-size: 1.4em;
-      list-style: none;
-      font-weight: 700;
-      color: white;
-      & p {
-        max-width: calc(100% - 30px);
-        display: inline-block;
-        white-space: nowrap;
-        overflow: scroll;
-        margin: 0;
-      }
-      & i {
-        float: right;
-      }
-    }
-  }
 }
 
-.see-all {
-    font-family: 'Lalezar', cursive;
-    position: absolute;
-    font-weight: 100;
-    font-size: 0.7em;
-    color: yellow;
-    right: 15px;
-    top: 10px;
+/* UTILITARY CLASSES */
+.icon-margin {
+  margin-right: 15px;
 }
 
-.selected {
+/* Required in order to put the Google Autocomplete list over the panel and not behind. */
+.pac-container {
+  z-index: 200000;
+}
+
+.selected { /* yellow border as mark in current city. */
   border-left: 5px solid yellow;
 }
 
-.navOpen {
+.navOpen { /* In mobile views, slides the menu to open. */
   left: 50px;
   transition: all .3s ease;
 }
@@ -174,6 +173,7 @@ h2 {
   }
 }
 
+/* NO MORE MEDIA QUERIES NEEDED */
 @media (min-width: 992px){
 
 }

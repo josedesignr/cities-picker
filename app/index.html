@@ -30,29 +30,29 @@
     <div class="cities-picker">
       
         <div class="cities-picker_panel" ng-class="{'navOpen' : navOpen}">
-            <h1 class="cities-picker_title">Cities Picker</h1>
+            <h1 class="main-title">Cities Picker</h1>
             <i class="nav-icon glyphicon glyphicon-menu-hamburger visible-xs" ng-click="navOpen = !navOpen;" ></i>
 
             <button class="autolocation-btn" ng-click="getMyLocation()">
-              <i class="glyphicon" ng-class="locationBtn_legend === 'Where am I?' ? 'glyphicon-screenshot' : 'glyphicon-hourglass'"></i>
+              <i class="icon-margin glyphicon" ng-class="locationBtn_legend === 'Where am I?' ? 'glyphicon-screenshot' : 'glyphicon-hourglass'"></i>
               {{locationBtn_legend}}
             </button>
 
-            <h2 class="cities-picker_title">
-                <i class="glyphicon glyphicon-search"></i>
+            <h2 class="main-title subtitle">
+                <i class="glyphicon glyphicon-search icon-margin"></i>
                 Search City
-                <small class="see-all" ng-click="expandMap()" >Expand map</small>
+                <small ng-click="expandMap()" >Expand map</small>
             </h2>
             
-            <input class="cities-picker_search-box" g-places-autocomplete ng-model="place" placeholder="Type a city" ng-change="validateAndAdd()"/>
+            <input class="search-box" g-places-autocomplete ng-model="place" placeholder="Type a city" ng-change="validateAndAdd()"/>
 
-            <ul class="cities-picker_list">
-                <li class="cities-picker_list-city" ng-class="{ 'selected' : currentCity === $index }" ng-repeat="city in $storage.citiesList" ng-click="moveMapHere($index)">
+            <ul class="cities-list">
+                <li class="cities-list_city" ng-class="{ 'selected' : currentCity === $index }" ng-repeat="city in $storage.citiesList" ng-click="moveMapHere($index)">
                     <p>{{city}}</p>
                     <i class="glyphicon glyphicon-remove" ng-click="removeCity($index)"></i>
                 </li>
             </ul>
-            <h5 class="panel_clear-all" ng-click="clearAll()">Clear All</h5>
+            <h5 class="clear-all" ng-click="clearAll()">Clear All</h5>
         </div>
         
         <leaflet id="mapboxid" lf-center="center" class="cities-picker_map" markers="$storage.markers" defaults="defaults"></leaflet>
