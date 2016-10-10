@@ -18,6 +18,7 @@ angular.module('citiesPicker')
             zoom: 5
         },
         defaults: {
+            //--THESE ARE DIFERENT MAP STYLES
             //tileLayer: "http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
             //tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
             //tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -30,36 +31,10 @@ angular.module('citiesPicker')
                 reuseTiles: true,
                 attribution: 'Mapbox'
             },
-            //maxZoom: 14,
     		minZoom: 2,
     		doubleClickZoom: true
-    		//scrollWheelZoom: false,
-    		//attributionControl: true
         }
-        /*
-        icon: {
-	        url: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-icon.png',
-	        retinaUrl: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-icon@2x.png',
-	        size: [25, 41],
-	        anchor: [12, 40],
-	        popup: [0, -40],
-	        shadow: {
-	            url: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-shadow.png',
-	            retinaUrl: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-shadow.png',
-	            size: [41, 41],
-	            anchor: [12, 40]
-	        }
-	    },
-	    path: {
-	        weight: 10,
-	        opacity: 1,
-	        color: '#0000ff'
-	    }
-	    */
     });
-
-	//$scope.markers = new Array();
-	//$scope.citiesList = [];
 
     $scope.navOpen = false;
 	$scope.getMyLocation = function() {
